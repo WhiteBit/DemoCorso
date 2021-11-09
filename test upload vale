@@ -1,0 +1,41 @@
+public class EsempioThread {
+
+	public static void main(String[] args) throws InterruptedException {
+//		Dichiaro il tread "Principale"
+		Thread t1=Thread.currentThread();
+		t1.setName("Principale");
+		
+//		Dichiaro il thread "Secondario"
+		Thread t2 = new Thread(new thread());
+		t2.setName("Secondario");
+		
+//		Stampo la prima uscita del thread principale
+		System.out.println("Thread: "+t1);
+		
+//		Faccio partire il secondo thread
+		t2.start();
+		
+//		Lo fermo per 6 secondi con il metodo "sleep()"
+		Thread.sleep(6000);
+		
+//		Stampo l'ultima uscita del thread principale
+		System.out.println("Uscita thread: "+t1);
+	}
+
+}
+
+// Creo la classe che fungera' da thread secondario
+class thread implements Runnable{
+	public void run(){
+		
+//		Ciclo che si ripete ogni secondo, per cinque secondi e stampa un conto alla rovescia.
+		for(int i=5;i>0;i--){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {}
+			System.out.println(i);			
+		}
+//		Stampo l'ultima uscita del thread secondario.
+		System.out.println("Uscita Thread: "+Thread.currentThread().getName());
+	}
+}
